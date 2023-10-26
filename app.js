@@ -30,6 +30,29 @@ const playRound = (playerChoice, compChoice) => {
         }
     }
 }
-const playerChoice = 'rock'
-const compChoice = getComputerChoice()
-console.log(playRound(playerChoice, compChoice))
+
+const game = () => {
+    let playerWins = 0
+    let compWins = 0
+    let i = 0
+    while (i < 5) {
+        const playerChoice = prompt('Select rock paper or scissors...')
+        const compChoice = getComputerChoice()
+        const res = playRound(playerChoice, compChoice)
+        console.log(res)
+        if (res.includes('Win')) {
+            playerWins += 1
+            ++i
+        } else if (res.includes('Lose')) {
+            compWins += 1
+            ++i
+        }
+    }
+    if (playerWins > compWins) {
+        console.log('Player Wins!')
+    } else if (playerWins < compWins) {
+        console.log('Computer Wins!')
+    }
+}
+
+game()
