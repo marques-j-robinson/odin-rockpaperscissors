@@ -36,7 +36,7 @@ const game = () => {
     document.querySelectorAll('.play').forEach(el => {
         const playerChoice = el.innerText
         el.addEventListener('click', () => {
-            resultEl.innerText = playRound(playerChoice, getComputerChoice())
+            resultEl.innerHTML = resultEl.innerHTML + `<li>${playRound(playerChoice, getComputerChoice())}</li>`
         })
     })
 }
