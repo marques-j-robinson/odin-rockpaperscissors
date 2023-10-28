@@ -37,6 +37,20 @@ const game = () => {
     const playerscoreEl = document.querySelector('.playerscore')
     const compscoreEl = document.querySelector('.compscore')
     const resultEl = document.querySelector('.result')
+    const gameoverEl = document.querySelector('.gameover')
+
+    const setGameOver = () => {
+        if (playerscore === 5) {
+            gameoverEl.innerText = 'Player Wins!'
+        }
+        if (compscore === 5) {
+            gameoverEl.innerText = 'Computer Wins!'
+        }
+        document.querySelectorAll('.play').forEach(el => {
+            el.style.display = 'none'
+        })
+    }
+
     document.querySelectorAll('.play').forEach(el => {
         const playerChoice = el.innerText
         el.addEventListener('click', () => {
@@ -50,6 +64,9 @@ const game = () => {
                 compscoreEl.innerText = compscore
             }
             resultEl.innerHTML = resultEl.innerHTML + `<li>${txt}</li>`
+            if (playerscore === 5 || compscore === 5) {
+                setGameOver()
+            }
         })
     })
 }
