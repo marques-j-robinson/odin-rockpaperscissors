@@ -32,11 +32,24 @@ const playRound = (playerChoice, compChoice) => {
 }
 
 const game = () => {
+    let playerscore = 0
+    let compscore = 0
+    const playerscoreEl = document.querySelector('.playerscore')
+    const compscoreEl = document.querySelector('.compscore')
     const resultEl = document.querySelector('.result')
     document.querySelectorAll('.play').forEach(el => {
         const playerChoice = el.innerText
         el.addEventListener('click', () => {
-            resultEl.innerHTML = resultEl.innerHTML + `<li>${playRound(playerChoice, getComputerChoice())}</li>`
+            const txt = playRound(playerChoice, getComputerChoice())
+            if (txt.includes('Win')) {
+                ++playerscore
+                playerscoreEl.innerText = playerscore
+            }
+            if (txt.includes('Lose')) {
+                ++compscore
+                compscoreEl.innerText = compscore
+            }
+            resultEl.innerHTML = resultEl.innerHTML + `<li>${txt}</li>`
         })
     })
 }
