@@ -32,27 +32,43 @@ const playRound = (playerChoice, compChoice) => {
 }
 
 const game = () => {
-    let playerWins = 0
-    let compWins = 0
-    let i = 0
-    while (i < 5) {
-        const playerChoice = prompt('Select rock paper or scissors...')
-        const compChoice = getComputerChoice()
-        const res = playRound(playerChoice, compChoice)
-        console.log(res)
-        if (res.includes('Win')) {
-            playerWins += 1
-            ++i
-        } else if (res.includes('Lose')) {
-            compWins += 1
-            ++i
+    let playerscore = 0
+    let compscore = 0
+    const playerscoreEl = document.querySelector('.playerscore')
+    const compscoreEl = document.querySelector('.compscore')
+    const resultEl = document.querySelector('.result')
+    const gameoverEl = document.querySelector('.gameover')
+
+    const setGameOver = () => {
+        if (playerscore === 5) {
+            gameoverEl.innerText = 'Player Wins!'
         }
+        if (compscore === 5) {
+            gameoverEl.innerText = 'Computer Wins!'
+        }
+        document.querySelectorAll('.play').forEach(el => {
+            el.style.display = 'none'
+        })
     }
-    if (playerWins > compWins) {
-        console.log('Player Wins!')
-    } else if (playerWins < compWins) {
-        console.log('Computer Wins!')
-    }
+
+    document.querySelectorAll('.play').forEach(el => {
+        const playerChoice = el.innerText
+        el.addEventListener('click', () => {
+            const txt = playRound(playerChoice, getComputerChoice())
+            if (txt.includes('Win')) {
+                ++playerscore
+                playerscoreEl.innerText = playerscore
+            }
+            if (txt.includes('Lose')) {
+                ++compscore
+                compscoreEl.innerText = compscore
+            }
+            resultEl.innerHTML = resultEl.innerHTML + `<li>${txt}</li>`
+            if (playerscore === 5 || compscore === 5) {
+                setGameOver()
+            }
+        })
+    })
 }
 
 game()
